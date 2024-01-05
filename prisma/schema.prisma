@@ -11,20 +11,11 @@ datasource db {
 }
 
 model User {
-<<<<<<< HEAD
   id            String   @id @default(uuid())
   name          String
   email         String   @unique
   password_hash String   @default("") // Adicionando default para não quebrar o banco de dados   
   created_at    DateTime @default(now())
-=======
-  id            String    @id @default(uuid())
-  name          String
-  email         String    @unique
-  password_hash String
-  created_at    DateTime  @default(now())
-  checkIns      CheckIn[]
->>>>>>> d8ff2b136292843448198b6f4a39f775af8bc2ae
 
   @@map("users")
 }
@@ -33,32 +24,17 @@ model CheckIn {
   id           String    @id @default(uuid())
   created_at   DateTime  @default(now())
   validated_at DateTime?
-<<<<<<< HEAD
-=======
-  user         User      @relation(fields: [user_id], references: [id])
-  user_id      String
-  gym          Gym       @relation(fields: [gym_id], references: [id])
-  gym_id       String
->>>>>>> d8ff2b136292843448198b6f4a39f775af8bc2ae
 
   @@map("check_ins")
 }
 
 model Gym {
-<<<<<<< HEAD
   id          String  @id @default(uuid())
-=======
-  id          String    @id @default(uuid())
->>>>>>> d8ff2b136292843448198b6f4a39f775af8bc2ae
   title       String
   description String?
   phone       String?
   latitude    Decimal
   longitude   Decimal
-<<<<<<< HEAD
-=======
-  checkIns    CheckIn[]
->>>>>>> d8ff2b136292843448198b6f4a39f775af8bc2ae
 
   @@map("gyms")
 }
