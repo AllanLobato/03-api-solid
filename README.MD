@@ -35,3 +35,6 @@ GymPass style app.
  # docker run --name api-solid-pg -e POSTGRESQL_USERNAME=docker -e POSTGRESQL_PASSWORD=docker -e POSTGRESQL_DATABASE=apisolid -p 5432:5432 bitnami/postgresql
 
  
+# bcryptjs - lib usada para criar um hash da senha do usuário antes de inserir no banco de dados.
+npm i bcryptjs
+npm i -D @types/bcryptjs

@@ -1,4 +1,5 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
+import { hash } from 'bcryptjs'
 import { prisma } from '@/lib/prisma'
 import { z } from 'zod'
 
@@ -11,11 +12,25 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
 
   const { name, email, password } = registerBodySchema.parse(request.body)
 
+  const password_hash = await hash(password, 6) // 6 é o número de rounds de hash para aplicações web. Quanto mais rounds, mais seguro, mas mais lento.
+
+  const userWithSameEmail = await prisma.user.findUnique({
+    where: {
+      email,
+    },
+  })
+
+  if (userWithSameEmail) {
+    return reply.status(409).send({
+      error: 'User already exists',
+    })
+  }
+
   await prisma.user.create({
     data: {
       name,
       email,
-      password_hash: password,
+      password_hash,
     },
   })
 
